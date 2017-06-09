@@ -1,0 +1,20 @@
+{
+  "name": "node-optim-packets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js",
+    "start": "nodemon index.js"
+  },
+  "author": "joevin22",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
