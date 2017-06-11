@@ -1,40 +1,25 @@
 'use strict';
 
-const express = require('express');
 const _  = require('lodash');
 const utils = require('./utils');
+const express = require('express');
 
 const app = express();
 
 app.get('/', function (req, res) {
 
-  //let packets = '8978242276814512134980329893248349789378539834123231675212368121286324329446548563256137868956343112338935';
+  let packets = req.query.packets || '163841689525773';
   //let packets = '123578911';
-  let packets = '163841689525773';
+  //let packets = '8978242276814512134980329893248349789378539834123231675212368121286324329446548563256137868956343112338935';
+  //let packets = '0002222222222222222222222222000111111110000099900000333333333330000000000055555000000007777777700000';
+  //let packets = '43571null23453nil211234undefined842NaN421';
   //console.log('packets ', packets);
 
-  const standardOptimized = utils.standardOptimiz(packets.split(''));
   const packetsOrderer = utils.reorder(packets.split(''));
   const packetsOptimized = utils.optimiz(packetsOrderer);
-  
-  const optimizedWeight = _.reduce(packetsOptimized, function(s, entry) {
-      return s + parseInt(entry.total);
-  }, 0);
-  const packetsWeight = _.reduce(packets, function(s, entry) {
-      return s + parseInt(entry);
-  }, 0);
+  const data =  utils.formatData(packetsOptimized).join('/');
 
-  res.send({
-    optimized: packetsOptimized, 
-    optimizedWeight: optimizedWeight, 
-    standardOptimized: standardOptimized,
-    packets: packets, 
-    weigth: packetsWeight, 
-    numberOfPackets: {
-      origin: standardOptimized.length,
-      optimized: packetsOptimized.length
-    }
-  });
+  res.send(data);
 
 });
 
