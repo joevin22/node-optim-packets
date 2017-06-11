@@ -29,7 +29,7 @@ app.get('/', function (req, res) {
 
 // Start server
 function startServer() {
-  app.listen(, function() {
+  app.listen(port, function() {
     console.log('Express server listening on %d, in %s mode', port, app.get('env'));
   });
 }
