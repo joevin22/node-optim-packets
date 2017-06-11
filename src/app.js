@@ -4,9 +4,11 @@ const _  = require('lodash');
 const utils = require('./utils');
 const express = require('express');
 
+const port = (process.env.PORT || 5000);
+
 const app = express();
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', port);
 
 app.get('/', function (req, res) {
 
@@ -27,8 +29,8 @@ app.get('/', function (req, res) {
 
 // Start server
 function startServer() {
-  app.listen(app.get('port'), function() {
-    console.log('Express server listening on 3000, in %s mode', app.get('env'));
+  app.listen(, function() {
+    console.log('Express server listening on %d, in %s mode', port, app.get('env'));
   });
 }
 
