@@ -14,10 +14,10 @@ const MAXSIZE = 10;
 /**
  * Fonction permettant de regrouper des valeurs mineures par paquet
  * a partir d'un tableau de valeurs et d'un element parent. 
- * L'element parent correspond a la plus grande valeur du tableau.
+ * L'element parent correspond a une valeur deja categorisee.
  * 
  * @param {string[]} values - tableau de valeurs 
- * @param {number} element - element parent a categoriser 
+ * @param {number} element - element parent categorise 
  * @param {number} index - index courant du parent
  * @returns {PacketModel}
  */
@@ -29,20 +29,18 @@ function groupItems(values, element, index) {
   };
   // on supprime cette valeur de notre tableau
   values.splice(index, 1);
-  // on traite toutes les valeurs mineures qui peuvent etre categorisees
-  let i = 0;
-  while (i === 0) { // FIXME: patch
-    let item = parseInt(values[i]);
+  // on traite toutes les valeurs qui peuvent etre categorisees
+  let i = values.length;
+  while (i > 0) { // FIXME: patch
+    let idx = i-1;
+    let item = parseInt(values[idx]);
     if (group.total + item <= MAXSIZE) {
       group.values.push(item);
       group.total += item;
-      values.splice(i, 1);
-      //i = 0;
-    }
-    else {
+      values.splice(idx, 1);
+    } else {
       // console.log(`group item ${group.values}, item : ${item}`);
-      i++;
-      //break;
+      i--;
     }
   }
 
@@ -115,7 +113,42 @@ function optimiz(values) {
   return result;
 }
 
+/**
+ * Fonction permettant de regrouper un tableau de valeurs
+ * par groupe de N articles.
+ * 
+ * @param {Array} values - tableau de valeurs a traiter
+ * @returns {Array<PacketModel>} un tableau de paquets
+ */
+function optimizOrigin(values) {
+  let result = [];
+  if (!values || values.length < 1) { return result; }
+
+  let item = {
+    total: 0,
+    values: []
+  };
+
+  for (let index = 0; index < values.length; index++) {
+    let element = parseInt(values[index]) || 0;
+    if (item.total + element <= MAXSIZE) {
+      item.total += element;
+      item.values.push(element);
+    } else {
+      result.push(item);
+      item = { total: element, values: [element] };
+    }
+  }
+
+  if (item.total > 0) {
+    result.push(item);
+  }
+
+  return result;
+}
+
 // Exposition des methodes 
 module.exports.reorder = reorder;
 module.exports.optimiz = optimiz;
+module.exports.optimizOrigin = optimizOrigin;
 module.exports.formatData = formatData;

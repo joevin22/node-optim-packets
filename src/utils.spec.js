@@ -9,6 +9,7 @@ describe('Utils Service:', function() {
     it('should reorder with 163841689525773', function () {
         let packets = '163841689525773';
         const result = service.reorder(packets.split(''));
+        expect(result).to.be.instanceOf(Array);        
         expect(result.join('')).to.equal('112334556677889');
     });
 
@@ -74,6 +75,43 @@ describe('Utils Service:', function() {
     it('should optimiz with string', function () {
         let packets = '16384AZ1A689525773';
         const result = service.optimiz(packets);
+        expect(result).to.be.instanceOf(Array); 
+        expect(result.length).to.equal(0);             
+    });
+
+  });
+
+  describe('service.optimizOrigin', function() {
+    
+    it('should optimizOrigin with array', function () {
+        let packets = '16384AZ1A689525773';
+        const result = service.optimizOrigin(packets.split(''));
+        expect(result).to.be.instanceOf(Array);      
+    });
+
+    it('should optimizOrigin with array orderer ASC', function () {
+        let packets = '112334556677889';
+        const result = service.optimizOrigin(packets.split(''));
+        expect(result).to.be.instanceOf(Array);      
+        expect(result.length).to.equal(10);
+    });
+
+    it('should optimizOrigin with empty', function () {
+        const result = service.optimizOrigin();
+        expect(result).to.be.instanceOf(Array);
+        expect(result.length).to.equal(0);
+    });
+
+    it('should optimizOrigin with string', function () {
+        let packets = '16384AZ1A6895257703';
+        const result = service.optimizOrigin(packets);
+        expect(result).to.be.instanceOf(Array); 
+        expect(result.length).to.equal(10);             
+    });
+
+    it('should optimizOrigin with 0', function () {
+        let packets = '00000000000000000000000000';
+        const result = service.optimizOrigin(packets.split(''));
         expect(result).to.be.instanceOf(Array); 
         expect(result.length).to.equal(0);             
     });
