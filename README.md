@@ -9,6 +9,8 @@ L'ordre des cartons et des articles n'a pas d'importance.
 
 ## Demo
 
+[Voir la démo](https://node-optim-packets.herokuapp.com/)
+
 ## Liste des commandes
 
 * Installation
