@@ -6,6 +6,8 @@ const express = require('express');
 
 const app = express();
 
+app.set('port', (process.env.PORT || 5000))
+
 app.get('/', function (req, res) {
 
   let packets = req.query.packets || '163841689525773';
@@ -25,7 +27,7 @@ app.get('/', function (req, res) {
 
 // Start server
 function startServer() {
-  app.listen(3000, function() {
+  app.listen(app.get('port'), function() {
     console.log('Express server listening on 3000, in %s mode', app.get('env'));
   });
 }
