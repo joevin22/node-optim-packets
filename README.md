@@ -32,4 +32,4 @@ npm run test
 
 * Générer un regroupement
 
-    => http://localhost:3000/?packets=8978236782342
+    => https://node-optim-packets.herokuapp.com/?packets=89782367823421111
