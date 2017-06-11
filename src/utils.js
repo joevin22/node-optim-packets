@@ -92,8 +92,8 @@ function optimiz(values) {
   let result = [];
 
   // on traite toutes les valeurs du tableau 
-  let i = Array.isArray(values) ? values.length : 0;
-  for (let index = i; i > 0; i--) {
+  let y = Array.isArray(values) ? values.length : 0;
+  for (let i = y; i > 0; i--) {
     // on recupere la derniere valeur du tableau (qui correspond a la valeur MAX)
     let index = values.length-1;
     const item = parseInt(values[index]) || 0;
